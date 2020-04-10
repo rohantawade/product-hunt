@@ -7,11 +7,11 @@ import {
   ListItemText,
   Avatar,
 } from "@material-ui/core";
+import { CommentsContext } from "../context/CommentState";
 
 export const Product = ({ product }) => {
-  const { fetchProductComments, comments, storeProductLike } = useContext(
-    ProductContext
-  );
+  const { storeProductLike } = useContext(ProductContext);
+  const { fetchProductComments, comments } = useContext(CommentsContext);
   const [viewComments, setviewComments] = useState(false);
 
   const productClickHandler = () => {
@@ -21,12 +21,11 @@ export const Product = ({ product }) => {
 
   const popupCloseHandler = () => {
     setviewComments(false);
-    console.log("view popup : " + viewComments);
   };
 
-  const productLikeHandler = () => {
-    console.log("like clicked");
+  const productLikeHandler = (e) => {
     storeProductLike({ prod_name: product.name, updatedOn: new Date() });
+    e.stopPropagation();
   };
 
   return (
@@ -39,7 +38,7 @@ export const Product = ({ product }) => {
         <button onClick={productLikeHandler}>Like</button>
       </ListItem>
       <CommentPopup
-        visible={viewComments}
+        visible={viewComments && comments && comments.length > 0}
         onClose={popupCloseHandler}
         comments={comments}
         title={product.name}

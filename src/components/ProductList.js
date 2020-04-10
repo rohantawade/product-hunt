@@ -5,8 +5,6 @@ import { ProductContext } from "../context/ProductState";
 export const ProductList = () => {
   const { products } = useContext(ProductContext);
 
-  console.log(products);
-
   return (
     <div>
       <ul>

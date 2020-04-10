@@ -34,7 +34,6 @@ export const ProductFilter = () => {
           </MenuItem>
         ))}
       </Select>
-      {/* <input type="text" placeholder="search product.."></input> */}
     </div>
   );
 };

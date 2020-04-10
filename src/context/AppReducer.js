@@ -13,7 +13,7 @@ export default (state, action) => {
     case "STORE_PRODUCT_LIKE":
       return {
         ...state,
-        activities: [...state.activities, action.payload],
+        activities: [action.payload, ...state.activities],
       };
     default:
       return state;

@@ -4,7 +4,6 @@ import AppReducer from "./AppReducer";
 // initial state
 const initialState = {
   products: [],
-  comments: [],
   activities: [],
 };
 
@@ -31,25 +30,9 @@ export const ProductHuntProvider = ({ children }) => {
     )
       .then((result) => result.json())
       .then((products) => {
-        console.log(products);
         dispatch({
           type: "FETCH_FILTERED_DATA",
           payload: products.posts,
-        });
-      });
-  }
-
-  function fetchProductComments(postId) {
-    fetch(
-      `https://api.producthunt.com/v1/posts/${postId}/comments`,
-      requestHeader
-    )
-      .then((result) => result.json())
-      .then((post) => {
-        console.log("comments ", post);
-        dispatch({
-          type: "FETCH_PRODUCT_COMMENTS",
-          payload: post.comments,
         });
       });
   }
@@ -66,9 +49,8 @@ export const ProductHuntProvider = ({ children }) => {
       value={{
         products: state.products,
         filterProducts,
-        fetchProductComments,
-        comments: state.comments,
         storeProductLike,
+        activities: state.activities,
       }}
     >
       {children}
